@@ -23,6 +23,7 @@
 #include <string>
 #include <utility>
 #include <tuple>
+#include <memory>
 #include <array>
 #include <valarray>
 #include <initializer_list>
@@ -275,6 +276,20 @@ TEST_CASE("doctest::toString")
         ss << formLabel( "std::tuple" ) << doctest::toString( value ) << '\n';
     }
 
+    {
+        std::shared_ptr<int> value {};
+        ss << formLabel( "std::shared_ptr(NULL)" ) << doctest::toString( value ) << '\n';
+        value.reset( new int(4) );
+        ss << formLabel( "std::shared_ptr" ) << doctest::toString( value ) << '\n';
+    }
+    
+    {
+        std::unique_ptr<int> value {};
+        ss << formLabel( "std::unique_ptr(NULL)" ) << doctest::toString( value ) << '\n';
+        value.reset( new int(4) );
+        ss << formLabel( "std::unique_ptr" ) << doctest::toString( value ) << '\n';
+    }
+    
     {
         std::array<int, 3> value { 1, 5, 8 };
         ss << formLabel( "std::array" ) << doctest::toString( value ) << '\n';

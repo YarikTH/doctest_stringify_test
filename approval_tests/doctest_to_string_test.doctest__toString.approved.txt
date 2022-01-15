@@ -71,6 +71,8 @@ std container and classes (c++11):
     std::string:                    Hello world!
     std::pair:                      {?}
     std::tuple:                     {?}
+    std::shared_ptr:                0xa6b2c0
+    std::unique_ptr:                0xa6b2e0
     std::array:                     {?}
     std::valarray:                  {?}
     std::initializer_list:          {?}

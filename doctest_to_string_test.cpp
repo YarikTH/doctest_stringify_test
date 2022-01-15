@@ -2,20 +2,28 @@
 #include "ApprovalTests.hpp"
 #include <sstream>
 
-//#define __cpp_lib_span
-//#define DOCTEST_CPP 20
-//#define DOCTEST_STL_STRINGIFY_FLIP
-//#include "stl_stringifier.h"
+#if __cplusplus >= 202002L
+#   define CXX_STANDARD 20
+#elif __cplusplus >= 201703L
+#   define CXX_STANDARD 17
+#elif __cplusplus >= 201402L
+#   define CXX_STANDARD 14
+#elif __cplusplus >= 201103L
+#   define CXX_STANDARD 11
+#endif
 
+//#define USE_STL_STRINGIFIER
+#ifdef USE_STL_STRINGIFIER
+#   define DOCTEST_CPP CXX_STANDARD
+#   define DOCTEST_STL_STRINGIFY_CHRONO
+#   define DOCTEST_STL_STRINGIFY_FLIP
+#   include "stl_stringifier.h"
+#endif
 
 #include <string>
-#include <string_view>
 #include <utility>
 #include <tuple>
-#include <optional>
-#include <variant>
 #include <array>
-#include <span>
 #include <valarray>
 #include <initializer_list>
 #include <vector>
@@ -24,6 +32,21 @@
 #include <forward_list>
 #include <stack>
 #include <queue>
+#include <set>
+#include <map>
+
+#if CXX_STANDARD >= 14
+#   include <string_view>
+#endif
+
+#if CXX_STANDARD >= 17
+#   include <optional>
+#   include <variant>
+#endif
+
+#if CXX_STANDARD >= 20
+#   include <span>
+#endif
 
 using namespace ApprovalTests;
 
@@ -235,18 +258,11 @@ TEST_CASE("doctest::toString")
         ss << formLabel( "struct with oss" ) << doctest::toString( s ) << '\n';
     }
 
-    ss << "std container and classes:\n";
+    ss << "std container and classes (c++11):\n";
 
     {
         const std::string value = "Hello world!";
         ss << formLabel( "std::string" ) << doctest::toString( value ) << '\n';
-    }
-
-    {
-        const std::string s = "Hello world!";
-        std::string_view value{ s };
-        value = value.substr( 0, 5 );
-        ss << formLabel( "std::string_view" ) << doctest::toString( value ) << '\n';
     }
 
     {
@@ -260,36 +276,8 @@ TEST_CASE("doctest::toString")
     }
 
     {
-        ss << formLabel( "std::nullopt" ) << doctest::toString( std::nullopt ) << '\n';
-        std::optional<int> value {};
-        ss << formLabel( "std::optional(nullopt)" ) << doctest::toString( value ) << '\n';
-        value = 9;
-        ss << formLabel( "std::optional" ) << doctest::toString( value ) << '\n';
-    }
-
-    {
-        std::variant<std::monostate, int, float> value {};
-        ss << formLabel( "std::variant(monostate)" ) << doctest::toString( value ) << '\n';
-        value = 5;
-        ss << formLabel( "std::variant(int)" ) << doctest::toString( value ) << '\n';
-        value = 9.2f;
-        ss << formLabel( "std::variant(float)" ) << doctest::toString( value ) << '\n';
-    }
-
-    {
-        std::integer_sequence<int, 9, 2, 5, 1, 9, 1, 6> value {};
-        ss << formLabel( "std::integer_sequence" ) << doctest::toString( value ) << '\n';
-    }
-
-    {
         std::array<int, 3> value { 1, 5, 8 };
         ss << formLabel( "std::array" ) << doctest::toString( value ) << '\n';
-    }
-
-    {
-        std::array<int, 3> ar { 9, 1, 5 };
-        std::span<int> value { ar };
-        ss << formLabel( "std::span" ) << doctest::toString( value ) << '\n';
     }
 
     {
@@ -338,6 +326,74 @@ TEST_CASE("doctest::toString")
         std::priority_queue<int> value { data.begin(), data.end() };
         ss << formLabel( "std::priority_queue" ) << doctest::toString( value ) << '\n';
     }
+    
+    {
+        std::set<int> value {{ 1, 2, 2, 6, 1, 4 }};
+        ss << formLabel( "std::set" ) << doctest::toString( value ) << '\n';
+    }
+    
+    {
+        std::multiset<int> value {{ 1, 2, 2, 6, 1, 4 }};
+        ss << formLabel( "std::multiset" ) << doctest::toString( value ) << '\n';
+    }
+    
+    {
+        std::map<int, std::string> value {{ { 1, "foo" }, { 2, "bar" }, { 1, "baz" } }};
+        ss << formLabel( "std::map" ) << doctest::toString( value ) << '\n';
+    }
+    
+    {
+        std::multimap<int, std::string> value {{ { 1, "foo" }, { 2, "bar" }, { 1, "baz" } }};
+        ss << formLabel( "std::multimap" ) << doctest::toString( value ) << '\n';
+    }
 
+#if CXX_STANDARD >= 14
+    ss << "std container and classes (c++14):\n";
+
+    {
+        std::integer_sequence<int, 9, 2, 5, 1, 9, 1, 6> value {};
+        ss << formLabel( "std::integer_sequence" ) << doctest::toString( value ) << '\n';
+    }
+#endif
+
+#if CXX_STANDARD >= 17
+    ss << "std container and classes (c++17):\n";
+    
+    {
+        const std::string s = "Hello world!";
+        std::string_view value{ s };
+        value = value.substr( 0, 5 );
+        ss << formLabel( "std::string_view" ) << doctest::toString( value ) << '\n';
+    }
+    
+    {
+        ss << formLabel( "std::nullopt" ) << doctest::toString( std::nullopt ) << '\n';
+        std::optional<int> value {};
+        ss << formLabel( "std::optional(nullopt)" ) << doctest::toString( value ) << '\n';
+        value = 9;
+        ss << formLabel( "std::optional" ) << doctest::toString( value ) << '\n';
+    }
+
+    {
+        std::variant<std::monostate, int, float> value {};
+        ss << formLabel( "std::variant(monostate)" ) << doctest::toString( value ) << '\n';
+        value = 5;
+        ss << formLabel( "std::variant(int)" ) << doctest::toString( value ) << '\n';
+        value = 9.2f;
+        ss << formLabel( "std::variant(float)" ) << doctest::toString( value ) << '\n';
+    }
+#endif
+
+#if CXX_STANDARD >= 20
+    ss << "std container and classes (c++20):\n";
+    
+    {
+        std::array<int, 3> ar { 9, 1, 5 };
+        std::span<int> value { ar };
+        ss << formLabel( "std::span" ) << doctest::toString( value ) << '\n';
+    }
+#endif
+    
+    
     Approvals::verify(ss.str());
 }

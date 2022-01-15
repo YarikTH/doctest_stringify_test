@@ -67,20 +67,11 @@ enumerations:
 structs:
     struct:                         {?}
     struct with oss:                309
-std container and classes:
+std container and classes (c++11):
     std::string:                    Hello world!
-    std::string_view:               Hello
     std::pair:                      {?}
     std::tuple:                     {?}
-    std::nullopt:                   {?}
-    std::optional(nullopt):         {?}
-    std::optional:                  {?}
-    std::variant(monostate):        {?}
-    std::variant(int):              {?}
-    std::variant(float):            {?}
-    std::integer_sequence:          {?}
     std::array:                     {?}
-    std::span:                      {?}
     std::valarray:                  {?}
     std::initializer_list:          {?}
     std::vector:                    {?}
@@ -90,4 +81,20 @@ std container and classes:
     std::stack:                     {?}
     std::queue:                     {?}
     std::priority_queue:            {?}
+    std::set:                       {?}
+    std::multiset:                  {?}
+    std::map:                       {?}
+    std::multimap:                  {?}
+std container and classes (c++14):
+    std::integer_sequence:          {?}
+std container and classes (c++17):
+    std::string_view:               Hello
+    std::nullopt:                   {?}
+    std::optional(nullopt):         {?}
+    std::optional:                  {?}
+    std::variant(monostate):        {?}
+    std::variant(int):              {?}
+    std::variant(float):            {?}
+std container and classes (c++20):
+    std::span:                      {?}
 

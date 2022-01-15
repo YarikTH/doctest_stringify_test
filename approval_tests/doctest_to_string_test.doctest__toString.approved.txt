@@ -1,2 +1,62 @@
-bool: true
+Fundamental types:
+    std::nullptr_t:                 NULL
+    short int:                      -1
+    unsigned short int:             1
+    int:                            -2
+    unsigned int:                   2
+    long int:                       -3
+    unsigned long int:              3
+    long long int:                  -4
+    unsigned long long int:         4
+    bool:                           true
+    signed char:                    65
+    unsigned char:                  66
+    char:                           67
+    wchar_t:                        68
+    char16_t:                       69
+    char32_t:                       70
+    float:                          1.1f
+    double:                         2.2
+    long double:                    3.3
+    short int*:                     NULL
+    unsigned short int*:            0x0000000000000002
+    int*:                           0x0000000000000003
+    unsigned int*:                  0x0000000000000004
+    long int*:                      0x0000000000000005
+    unsigned long int*:             0x0000000000000006
+    long long int*:                 0x0000000000000007
+    unsigned long long int*:        0x0000000000000008
+    bool*:                          0x0000000000000009
+    signed char*:                   0x000000000000000a
+    unsigned char*:                 0x000000000000000b
+    char*:                          0x000000000000000c
+    wchar_t*:                       0x000000000000000d
+    char16_t*:                      0x000000000000000e
+    char32_t*:                      0x000000000000000f
+    float*:                         0x0000000000000010
+    double*:                        0x0000000000000011
+    long double*:                   0x0000000000000012
+    const short int*:               NULL
+    const unsigned short int*:      0x0000000000000002
+    const int*:                     0x0000000000000003
+    const unsigned int*:            0x0000000000000004
+    const long int*:                0x0000000000000005
+    const unsigned long int*:       0x0000000000000006
+    const long long int*:           0x0000000000000007
+    const unsigned long long int*:  0x0000000000000008
+    const bool*:                    0x0000000000000009
+    const signed char*:             0x000000000000000a
+    const unsigned char*:           0x000000000000000b
+    const char*:                    0x000000000000000c
+    const wchar_t*:                 0x000000000000000d
+    const char16_t*:                0x000000000000000e
+    const char32_t*:                0x000000000000000f
+    const float*:                   0x0000000000000010
+    const double*:                  0x0000000000000011
+    const long double*:             0x0000000000000012
+С arrays:
+    const char[]:                   foo
+    char[]:                         bar
+    const int[]:                    123
+    int[]:                          456
 

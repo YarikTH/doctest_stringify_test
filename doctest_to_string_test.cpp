@@ -2,6 +2,29 @@
 #include "ApprovalTests.hpp"
 #include <sstream>
 
+//#define __cpp_lib_span
+//#define DOCTEST_CPP 20
+//#define DOCTEST_STL_STRINGIFY_FLIP
+//#include "stl_stringifier.h"
+
+
+#include <string>
+#include <string_view>
+#include <utility>
+#include <tuple>
+#include <optional>
+#include <variant>
+#include <array>
+#include <span>
+#include <valarray>
+#include <initializer_list>
+#include <vector>
+#include <deque>
+#include <list>
+#include <forward_list>
+#include <stack>
+#include <queue>
+
 using namespace ApprovalTests;
 
 namespace
@@ -211,6 +234,110 @@ TEST_CASE("doctest::toString")
         s.value = 777;
         ss << formLabel( "struct with oss" ) << doctest::toString( s ) << '\n';
     }
-    
+
+    ss << "std container and classes:\n";
+
+    {
+        const std::string value = "Hello world!";
+        ss << formLabel( "std::string" ) << doctest::toString( value ) << '\n';
+    }
+
+    {
+        const std::string s = "Hello world!";
+        std::string_view value{ s };
+        value = value.substr( 0, 5 );
+        ss << formLabel( "std::string_view" ) << doctest::toString( value ) << '\n';
+    }
+
+    {
+        std::pair<int, float> value { 1, 2.3f };
+        ss << formLabel( "std::pair" ) << doctest::toString( value ) << '\n';
+    }
+
+    {
+        std::tuple<bool, int, double> value { false, 7, 6.6 };
+        ss << formLabel( "std::tuple" ) << doctest::toString( value ) << '\n';
+    }
+
+    {
+        ss << formLabel( "std::nullopt" ) << doctest::toString( std::nullopt ) << '\n';
+        std::optional<int> value {};
+        ss << formLabel( "std::optional(nullopt)" ) << doctest::toString( value ) << '\n';
+        value = 9;
+        ss << formLabel( "std::optional" ) << doctest::toString( value ) << '\n';
+    }
+
+    {
+        std::variant<std::monostate, int, float> value {};
+        ss << formLabel( "std::variant(monostate)" ) << doctest::toString( value ) << '\n';
+        value = 5;
+        ss << formLabel( "std::variant(int)" ) << doctest::toString( value ) << '\n';
+        value = 9.2f;
+        ss << formLabel( "std::variant(float)" ) << doctest::toString( value ) << '\n';
+    }
+
+    {
+        std::integer_sequence<int, 9, 2, 5, 1, 9, 1, 6> value {};
+        ss << formLabel( "std::integer_sequence" ) << doctest::toString( value ) << '\n';
+    }
+
+    {
+        std::array<int, 3> value { 1, 5, 8 };
+        ss << formLabel( "std::array" ) << doctest::toString( value ) << '\n';
+    }
+
+    {
+        std::array<int, 3> ar { 9, 1, 5 };
+        std::span<int> value { ar };
+        ss << formLabel( "std::span" ) << doctest::toString( value ) << '\n';
+    }
+
+    {
+        std::valarray<int> value { 7, 3, 2 };
+        ss << formLabel( "std::valarray" ) << doctest::toString( value ) << '\n';
+    }
+
+    {
+        std::initializer_list<int> value { 1, 7, 0 };
+        ss << formLabel( "std::initializer_list" ) << doctest::toString( value ) << '\n';
+    }
+
+    {
+        std::vector<int> value { 4, 2, 7 };
+        ss << formLabel( "std::vector" ) << doctest::toString( value ) << '\n';
+    }
+
+    {
+        std::deque<int> value { 1, 1, 6, 2 };
+        ss << formLabel( "std::deque" ) << doctest::toString( value ) << '\n';
+    }
+
+    {
+        std::list<int> value { 7, 5, 2, 1 };
+        ss << formLabel( "std::list" ) << doctest::toString( value ) << '\n';
+    }
+
+    {
+        std::forward_list<int> value { 7, 0, 3, 7, 4 };
+        ss << formLabel( "std::forward_list" ) << doctest::toString( value ) << '\n';
+    }
+
+    {
+        std::stack<int> value {{ 1, 2, 3, 4, 5 }};
+        ss << formLabel( "std::stack" ) << doctest::toString( value ) << '\n';
+    }
+
+    {
+        std::queue<int> value {{ 1, 2, 3, 4, 5 }};
+        ss << formLabel( "std::queue" ) << doctest::toString( value ) << '\n';
+    }
+
+    {
+        const auto data = { 1, 8, 5, 6, 3 };
+
+        std::priority_queue<int> value { data.begin(), data.end() };
+        ss << formLabel( "std::priority_queue" ) << doctest::toString( value ) << '\n';
+    }
+
     Approvals::verify(ss.str());
 }

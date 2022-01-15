@@ -12,9 +12,9 @@ Fundamental types:
     signed char:                    65
     unsigned char:                  66
     char:                           67
-    wchar_t:                        68
-    char16_t:                       69
-    char32_t:                       70
+    wchar_t:                        {?}
+    char16_t:                       {?}
+    char32_t:                       {?}
     float:                          1.1f
     double:                         2.2
     long double:                    3.3
@@ -67,4 +67,27 @@ enumerations:
 structs:
     struct:                         {?}
     struct with oss:                309
+std container and classes:
+    std::string:                    Hello world!
+    std::string_view:               Hello
+    std::pair:                      {?}
+    std::tuple:                     {?}
+    std::nullopt:                   {?}
+    std::optional(nullopt):         {?}
+    std::optional:                  {?}
+    std::variant(monostate):        {?}
+    std::variant(int):              {?}
+    std::variant(float):            {?}
+    std::integer_sequence:          {?}
+    std::array:                     {?}
+    std::span:                      {?}
+    std::valarray:                  {?}
+    std::initializer_list:          {?}
+    std::vector:                    {?}
+    std::deque:                     {?}
+    std::list:                      {?}
+    std::forward_list:              {?}
+    std::stack:                     {?}
+    std::queue:                     {?}
+    std::priority_queue:            {?}
 

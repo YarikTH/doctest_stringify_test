@@ -64,4 +64,7 @@ enumerations:
     EnumWithOss:                    2
     EnumClass:                      3
     EnumClassWithOss:               4
+structs:
+    struct:                         {?}
+    struct with oss:                309
 

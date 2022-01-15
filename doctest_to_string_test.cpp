@@ -53,6 +53,20 @@ std::ostream& operator<<( std::ostream& os, EnumClassWithOss value )
     return os;
 }
 
+struct Struct
+{
+};
+
+struct StructOss
+{
+    int value;
+};
+
+inline std::ostream& operator<<(std::ostream& os, StructOss s)
+{
+    return os << s.value;
+}
+
 }
 
 TEST_CASE("doctest::toString")
@@ -184,6 +198,19 @@ TEST_CASE("doctest::toString")
     DUMP_TYPE_VALUE(EnumWithOss, EnumWithOss::E_VALUE_WITH_OSS);
     DUMP_TYPE_VALUE(EnumClass, EnumClass::VALUE);
     DUMP_TYPE_VALUE(EnumClassWithOss, EnumClassWithOss::A);
+    
+    ss << "structs:\n";
+    
+    {
+        Struct s;
+        ss << formLabel( "struct" ) << doctest::toString( s ) << '\n';
+    }
+    
+    {
+        StructOss s {};
+        s.value = 777;
+        ss << formLabel( "struct with oss" ) << doctest::toString( s ) << '\n';
+    }
     
     Approvals::verify(ss.str());
 }

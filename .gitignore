@@ -33,5 +33,5 @@
 
 # Other
 /.idea/
-/cmake-build-debug/
+/cmake-build*/
 *.received.*

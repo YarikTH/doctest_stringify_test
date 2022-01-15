@@ -1,0 +1,6 @@
+[submodule "libs/doctest"]
+	path = libs/doctest
+	url = ../doctest.git
+[submodule "libs/ApprovalTests.cpp"]
+	path = libs/ApprovalTests.cpp
+	url = https://github.com/approvals/ApprovalTests.cpp.git

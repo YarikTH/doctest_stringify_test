@@ -4,6 +4,57 @@
 
 using namespace ApprovalTests;
 
+namespace
+{
+
+enum Enum
+{
+    E_VALUE = 1
+};
+
+enum EnumWithOss
+{
+    E_VALUE_WITH_OSS = 2
+};
+
+std::ostream& operator<<( std::ostream& os, EnumWithOss value )
+{
+    switch (value) {
+    default:
+        os << "???";
+        break;
+    case EnumWithOss::E_VALUE_WITH_OSS:
+        os << "E_VALUE_WITH_OSS";
+        break;
+    }
+    return os;
+}
+
+enum class EnumClass : int
+{
+    VALUE = 3
+};
+
+enum class EnumClassWithOss : int
+{
+    A = 4
+};
+
+std::ostream& operator<<( std::ostream& os, EnumClassWithOss value )
+{
+    switch (value) {
+    default:
+        os << "???";
+        break;
+    case EnumClassWithOss::A:
+        os << "A";
+        break;
+    }
+    return os;
+}
+
+}
+
 TEST_CASE("doctest::toString")
 {
     std::ostringstream ss;
@@ -127,6 +178,12 @@ TEST_CASE("doctest::toString")
         int cArray[] = {4, 5, 6};
         ss << formLabel( "int[]" ) << doctest::toString( cArray ) << '\n';
     }
+    
+    ss << "enumerations:\n";
+    DUMP_TYPE_VALUE(Enum, Enum::E_VALUE);
+    DUMP_TYPE_VALUE(EnumWithOss, EnumWithOss::E_VALUE_WITH_OSS);
+    DUMP_TYPE_VALUE(EnumClass, EnumClass::VALUE);
+    DUMP_TYPE_VALUE(EnumClassWithOss, EnumClassWithOss::A);
     
     Approvals::verify(ss.str());
 }

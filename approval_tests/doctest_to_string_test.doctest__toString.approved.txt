@@ -59,4 +59,9 @@ Fundamental types:
     char[]:                         bar
     const int[]:                    123
     int[]:                          456
+enumerations:
+    Enum:                           1
+    EnumWithOss:                    2
+    EnumClass:                      3
+    EnumClassWithOss:               4
 
